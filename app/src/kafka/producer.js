@@ -1,8 +1,9 @@
 import { Kafka } from "kafkajs";
 
+const kafka_PORT = process.env.PORT || 9092;
 const kafka = new Kafka({
     clientId: 'node-producer',
-    brokers: ['localhost:9092']
+    brokers: [`localhost:${kafka_PORT}`]
 });
 
 const Producer = kafka.producer();
