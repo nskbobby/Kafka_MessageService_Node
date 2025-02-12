@@ -5,6 +5,7 @@ import { dirname } from 'path';
 import { Kafka } from "kafkajs";
 
 const app = express(); // server initialize
+const port = process.env.PORT || 3000;
 
 //Kafka Integration
 const kafka = new Kafka({
@@ -69,6 +70,6 @@ app.post('/message', async (req, res) => {
     }
 });
 
-app.listen("3000", () => {
-    console.log('Listening on port 3000');
+app.listen(port, () => {
+    console.log(`Listening on port ${port}` );
 });
