@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>KafkaTest</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' href='/styles.css'>
+    <script src='main.js'></script>
+    <script>
+        async function fetchMessages() {
+            const response = await fetch('/api/messages');
+            const data = await response.json();
+            const messagesContainer = document.getElementById('messages');
+            messagesContainer.innerHTML = '';
+    
+            data.messages.forEach(msg => {
+                const li = document.createElement('li');
+                li.textContent = msg;
+                messagesContainer.appendChild(li);
+            });
+        }
+    
+        setInterval(fetchMessages, 2000); // Fetch messages every 2 seconds
+    </script>
+        
+</head>
+
+<body>
+
+    <div class="message-form">
+        <form action="/message" method="post">
+            <label for="message">Message</label>
+            <input type="text" name="message" placeholder="Enter a message" required />
+            <button type="submit">Send</button>
+        </form>
+
+        <h2>Received Messages</h2>
+        <ul id="messages"></ul>
+    </div>
+
+</body>
+
+</html>
