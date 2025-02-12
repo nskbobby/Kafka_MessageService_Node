@@ -1,6 +1,5 @@
 import { Kafka } from "kafkajs";
 
-
 const kafka = new Kafka({
     clientId:'my-app',
     brokers: ['localhost:9092']
@@ -8,6 +7,7 @@ const kafka = new Kafka({
 
 
 const Consumer = kafka.consumer({groupId:'myKafkaGroup'});
+export let ReceivedMessage = [];
 
 const runConsumer = async () =>{
     Consumer.connect();
@@ -17,8 +17,8 @@ await Consumer.subscribe({topic:'myKafkaSetup', fromBeginning:true});
 
 await Consumer.run({
     eachMessage: async ({topic, partiation, message}) =>{
-        rmessage=message.value.toString();
-     console.log(`Received Message: ${message.value.toString()}`);
+      console.log(`Received Message: ${message.value.toString()}`);
+      ReceivedMessage.push(message.value.toString());
     },
 })
 };
